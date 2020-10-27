@@ -28,7 +28,7 @@ const App = () => {
     <div>
       <h1>富文本编辑器</h1>
       <Editor
-        editor={ref}
+        forwardedRef={ref}
         onImageUpload={async file => {
           // 上传到阿里云oss，返回cdn url
           console.log('file', file)

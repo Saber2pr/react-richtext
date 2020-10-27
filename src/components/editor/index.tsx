@@ -7,7 +7,7 @@ import { Editor as EditorCore } from 'react-draft-wysiwyg'
 
 export interface EditorProps {
   onImageUpload(file: File): Promise<string>
-  editor?: { current: EditorRefObj }
+  forwardedRef?: { current: EditorRefObj }
 }
 
 export interface EditorRefObj {
@@ -17,9 +17,9 @@ export interface EditorRefObj {
 /**
  * 这里不用forwardRef的原因是为了支持next/dynamic
  */
-export const Editor = ({ onImageUpload, editor }: EditorProps) => {
+export const Editor = ({ onImageUpload, forwardedRef }: EditorProps) => {
   const [value, onChange] = useState<EditorState>()
-  useImperativeHandle(editor, () => ({
+  useImperativeHandle(forwardedRef, () => ({
     toHTMLString: () => draftToHtml(convertToRaw(value.getCurrentContent())),
   }))
   return (

@@ -1,64 +1,64 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
-const CleanCSSPlugin = require("less-plugin-clean-css")
-const path = require("path")
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CleanCSSPlugin = require('less-plugin-clean-css')
+const path = require('path')
 
-const extractLess = new ExtractTextPlugin("style.min.css")
+const extractLess = new ExtractTextPlugin('style.min.css')
 
-const { WebpackConfig, templateContent } = require("@saber2pr/webpack-configer")
+const { WebpackConfig, templateContent } = require('@saber2pr/webpack-configer')
 
 module.exports = WebpackConfig({
-  entry: "./src/app.tsx",
+  entry: './src/app.tsx',
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"]
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   output: {
-    filename: "bundle.min.js",
-    path: path.join(__dirname, "build")
+    filename: 'bundle.min.js',
+    path: path.join(__dirname, 'build'),
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        use: ["ts-loader"]
+        use: ['ts-loader'],
       },
       {
         test: /\.(css|less)$/,
         use: extractLess.extract({
           use: [
             {
-              loader: "css-loader"
+              loader: 'css-loader',
             },
             {
-              loader: "less-loader",
+              loader: 'less-loader',
               options: {
                 plugins: [
                   new CleanCSSPlugin({
-                    advanced: true
-                  })
-                ]
-              }
-            }
+                    advanced: true,
+                  }),
+                ],
+              },
+            },
           ],
-          fallback: "style-loader"
-        })
+          fallback: 'style-loader',
+        }),
       },
       {
         test: /\.(woff|svg|eot|ttf)$/,
-        use: ["url-loader"]
-      }
-    ]
+        use: ['url-loader'],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      templateContent: templateContent("react-ts", {
-        injectBody: '<div id="root"></div>'
-      })
+      templateContent: templateContent('@saber2pr/react-richtext', {
+        injectBody: '<div id="root"></div>',
+      }),
     }),
-    extractLess
+    extractLess,
   ],
   watchOptions: {
     aggregateTimeout: 1000,
-    ignored: /node_modules|lib/
-  }
+    ignored: /node_modules|lib/,
+  },
 })
