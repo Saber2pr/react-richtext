@@ -20,7 +20,11 @@ export interface EditorRefObj {
 export const Editor = ({ onImageUpload, forwardedRef }: EditorProps) => {
   const [value, onChange] = useState<EditorState>()
   useImperativeHandle(forwardedRef, () => ({
-    toHTMLString: () => draftToHtml(convertToRaw(value.getCurrentContent())),
+    toHTMLString: () => {
+      if (value) {
+        return draftToHtml(convertToRaw(value.getCurrentContent()))
+      }
+    },
   }))
   return (
     <EditorCore
