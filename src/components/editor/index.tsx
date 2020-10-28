@@ -6,7 +6,7 @@ import React, { useImperativeHandle, useState } from 'react'
 import { Editor as EditorCore } from 'react-draft-wysiwyg'
 
 export interface EditorProps {
-  onImageUpload(file: File): Promise<string>
+  onImageUpload?(file: File): string | Promise<string>
   forwardedRef?: { current: EditorRefObj }
 }
 
@@ -17,7 +17,10 @@ export interface EditorRefObj {
 /**
  * 这里不用forwardRef的原因是为了支持next/dynamic
  */
-export const Editor = ({ onImageUpload, forwardedRef }: EditorProps) => {
+export const Editor = ({
+  onImageUpload = URL.createObjectURL,
+  forwardedRef,
+}: EditorProps) => {
   const [value, onChange] = useState<EditorState>()
   useImperativeHandle(forwardedRef, () => ({
     toHTMLString: () => {
@@ -30,7 +33,7 @@ export const Editor = ({ onImageUpload, forwardedRef }: EditorProps) => {
     <EditorCore
       editorState={value}
       onEditorStateChange={onChange}
-      uploadCallback={async (file: any) => ({
+      uploadCallback={async (file: File) => ({
         data: {
           link: await onImageUpload(file),
         },

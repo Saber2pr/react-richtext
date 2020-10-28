@@ -16,6 +16,23 @@ yarn add @saber2pr/react-richtext
 
 # Start
 
+示例 1：
+
+```tsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+import Editor from '@saber2pr/react-richtext'
+
+const App = () => {
+  return <Editor />
+}
+
+ReactDOM.render(<App />, document.querySelector('#root'))
+```
+
+示例 2：
+
 ```tsx
 import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'

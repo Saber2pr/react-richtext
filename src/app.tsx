@@ -10,10 +10,11 @@ const App = () => {
       <h1>富文本编辑器</h1>
       <Editor
         forwardedRef={ref}
-        onImageUpload={async file => {
+        onImageUpload={file => {
           // 上传到阿里云oss，返回cdn url
           console.log('file', file)
-          return 'https://img.alicdn.com/tfs/TB13DzOjXP7gK0jSZFjXXc5aXXa-212-48.png'
+          return URL.createObjectURL(file)
+          // return 'https://img.alicdn.com/tfs/TB13DzOjXP7gK0jSZFjXXc5aXXa-212-48.png'
         }}
       />
       <button
