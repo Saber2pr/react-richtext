@@ -39,6 +39,10 @@ import ReactDOM from 'react-dom'
 
 import Editor, { EditorRefObj } from '@saber2pr/react-richtext'
 
+// in nextjs
+// import dynamic from 'next/dynamic'
+// const Editor = dynamic(() => import('@saber2pr/react-richtext'), { ssr: false })
+
 const App = () => {
   const ref = useRef<EditorRefObj>()
   return (
