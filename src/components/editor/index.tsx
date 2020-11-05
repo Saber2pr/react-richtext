@@ -8,6 +8,9 @@ import { Editor as EditorCore } from 'react-draft-wysiwyg'
 export interface EditorProps {
   onImageUpload?(file: File): string | Promise<string>
   forwardedRef?: { current: EditorRefObj }
+  editorClassName?: string
+  toolbarClassName?: string
+  wrapperClassName?: string
 }
 
 export interface EditorRefObj {
@@ -20,6 +23,9 @@ export interface EditorRefObj {
 export const Editor = ({
   onImageUpload = URL.createObjectURL,
   forwardedRef,
+  editorClassName,
+  toolbarClassName,
+  wrapperClassName,
 }: EditorProps) => {
   const [value, onChange] = useState<EditorState>()
   useImperativeHandle(forwardedRef, () => ({
@@ -31,6 +37,9 @@ export const Editor = ({
   }))
   return (
     <EditorCore
+      editorClassName={editorClassName}
+      toolbarClassName={toolbarClassName}
+      wrapperClassName={wrapperClassName}
       editorState={value}
       onEditorStateChange={onChange}
       uploadCallback={async (file: File) => ({

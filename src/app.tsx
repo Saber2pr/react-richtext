@@ -9,6 +9,7 @@ const App = () => {
     <div>
       <h1>富文本编辑器</h1>
       <Editor
+        editorClassName="test"
         forwardedRef={ref}
         onImageUpload={file => {
           // 上传到阿里云oss，返回cdn url
