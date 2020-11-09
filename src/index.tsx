@@ -1,2 +1,2 @@
 export * from './components'
-export { Editor as default } from './components'
+export { EditorControled as default } from './components'

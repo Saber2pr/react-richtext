@@ -22,7 +22,7 @@ yarn add @saber2pr/react-richtext
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Editor from '@saber2pr/react-richtext'
+import { Editor } from '@saber2pr/react-richtext'
 
 const App = () => {
   return <Editor />
@@ -37,11 +37,11 @@ ReactDOM.render(<App />, document.querySelector('#root'))
 import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 
-import Editor, { EditorRefObj } from '@saber2pr/react-richtext'
+import { EditorRefObj, Editor } from '@saber2pr/react-richtext'
 
 // in nextjs
 // import dynamic from 'next/dynamic'
-// const Editor = dynamic(() => import('@saber2pr/react-richtext'), { ssr: false })
+// const EditorControled = dynamic(() => import('@saber2pr/react-richtext'), { ssr: false })
 
 const App = () => {
   const ref = useRef<EditorRefObj>()
