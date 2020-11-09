@@ -58,8 +58,8 @@ export const Editor = ({
 }
 
 export interface EditorControledProps extends BaseEditorProps {
-  value: EditorState
-  onChange: (editorState: EditorState) => void
+  value?: EditorState
+  onChange?: (editorState: EditorState) => void
 }
 
 /**

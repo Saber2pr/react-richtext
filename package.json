@@ -1,6 +1,6 @@
 {
   "name": "@saber2pr/react-richtext",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "richtext for react.",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack -w",
