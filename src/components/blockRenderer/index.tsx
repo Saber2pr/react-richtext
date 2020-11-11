@@ -26,9 +26,6 @@ export function BlockRenderer(contentBlock) {
     return {
       component: MediaComponent,
       editable: false,
-      props: {
-        foo: 'bar',
-      },
     }
   }
 }
