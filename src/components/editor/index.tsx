@@ -1,7 +1,8 @@
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
-import { convertToRaw, EditorState } from 'draft-js'
+import { ContentState, convertToRaw, EditorState } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs'
 import React, { useImperativeHandle, useState } from 'react'
 import { Editor as EditorCore } from 'react-draft-wysiwyg'
 
@@ -25,6 +26,16 @@ export interface EditorProps extends BaseEditorProps {
 
 export const parseEditorValue = (value: EditorState) =>
   draftToHtml(convertToRaw(value.getCurrentContent()))
+
+export const restoreEditorValue = (html: string) => {
+  const blocksFromHtml = htmlToDraft(html)
+  const { contentBlocks, entityMap } = blocksFromHtml
+  const contentState = ContentState.createFromBlockArray(
+    contentBlocks,
+    entityMap
+  )
+  return EditorState.createWithContent(contentState)
+}
 
 /**
  * 这里不用forwardRef的原因是为了支持next/dynamic
