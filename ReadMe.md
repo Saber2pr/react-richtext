@@ -72,6 +72,52 @@ const App = () => {
 ReactDOM.render(<App />, document.querySelector('#root'))
 ```
 
+# 在 nextjs+antd 环境使用
+
+```tsx
+const Editor = dynamic(() => import('@saber2pr/react-richtext'), { ssr: false })
+
+const App = ({ html }) => {
+  const [form] = Form.useForm()
+
+  const restoreEdit = async () => {
+    const content = html
+    if (content) {
+      const { restoreEditorValue } = await import('@saber2pr/react-richtext')
+      const editorState = restoreEditorValue(content)
+      form.setFieldsValue({
+        content: editorState,
+      })
+    }
+  }
+
+  useEffect(() => {
+    restoreEdit()
+  }, [])
+
+  const onFinish = async values => {
+    const { parseEditorValue } = await import('@saber2pr/react-richtext')
+    try {
+      const content = values.content
+      if (content) {
+        values.content = parseEditorValue(content)
+      }
+      await axios.post('/api/xxx', values)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  return (
+    <Form form={form} onFinish={onFinish}>
+      <Form.Item name="content">
+        <Editor />
+      </Form.Item>
+    </Form>
+  )
+}
+```
+
 # Dependencies
 
 react-draft-wysiwyg
