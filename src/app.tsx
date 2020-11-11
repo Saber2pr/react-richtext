@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 
-import Editor, { EditorRefObj } from './'
+import { Editor, EditorRefObj } from './'
 
 const App = () => {
   const ref = useRef<EditorRefObj>()
