@@ -75,6 +75,7 @@ ReactDOM.render(<App />, document.querySelector('#root'))
 # 在 nextjs+antd 环境使用
 
 ```tsx
+import dynamic from 'next/dynamic'
 const Editor = dynamic(() => import('@saber2pr/react-richtext'), { ssr: false })
 
 const App = ({ html }) => {
