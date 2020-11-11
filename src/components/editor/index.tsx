@@ -5,11 +5,14 @@ import draftToHtml from 'draftjs-to-html'
 import React, { useImperativeHandle, useState } from 'react'
 import { Editor as EditorCore } from 'react-draft-wysiwyg'
 
+import { BlockRenderer } from '../blockRenderer'
+
 export interface BaseEditorProps {
   onImageUpload?(file: File): string | Promise<string>
   editorClassName?: string
   toolbarClassName?: string
   wrapperClassName?: string
+  placeholder?: string
 }
 
 export interface EditorRefObj {
@@ -32,6 +35,7 @@ export const Editor = ({
   editorClassName,
   toolbarClassName,
   wrapperClassName,
+  placeholder,
 }: EditorProps) => {
   const [value, onChange] = useState<EditorState>()
   useImperativeHandle(forwardedRef, () => ({
@@ -47,7 +51,9 @@ export const Editor = ({
       toolbarClassName={toolbarClassName}
       wrapperClassName={wrapperClassName}
       editorState={value}
+      placeholder={placeholder}
       onEditorStateChange={onChange}
+      customBlockRenderFunc={BlockRenderer}
       uploadCallback={async (file: File) => ({
         data: {
           link: await onImageUpload(file),
@@ -72,6 +78,7 @@ export const EditorControled = ({
   wrapperClassName,
   value,
   onChange,
+  placeholder,
 }: EditorControledProps) => {
   return (
     <EditorCore
@@ -80,6 +87,8 @@ export const EditorControled = ({
       wrapperClassName={wrapperClassName}
       editorState={value}
       onEditorStateChange={onChange}
+      placeholder={placeholder}
+      customBlockRenderFunc={BlockRenderer}
       uploadCallback={async (file: File) => ({
         data: {
           link: await onImageUpload(file),
