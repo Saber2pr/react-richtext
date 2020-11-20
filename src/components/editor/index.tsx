@@ -4,7 +4,7 @@ import { ContentState, convertToRaw, EditorState } from 'draft-js'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import React, { useImperativeHandle, useState } from 'react'
-import { Editor as EditorCore } from 'react-draft-wysiwyg'
+import { ContentBlock, Editor as EditorCore } from 'react-draft-wysiwyg'
 
 import { BlockRenderer } from '../blockRenderer'
 
@@ -14,6 +14,7 @@ export interface BaseEditorProps {
   toolbarClassName?: string
   wrapperClassName?: string
   placeholder?: string
+  customBlockRenderFunc?(block: ContentBlock): any
 }
 
 export interface EditorRefObj {
@@ -47,6 +48,7 @@ export const Editor = ({
   toolbarClassName,
   wrapperClassName,
   placeholder,
+  customBlockRenderFunc = BlockRenderer,
 }: EditorProps) => {
   const [value, onChange] = useState<EditorState>()
   useImperativeHandle(forwardedRef, () => ({
@@ -64,7 +66,7 @@ export const Editor = ({
       editorState={value}
       placeholder={placeholder}
       onEditorStateChange={onChange}
-      customBlockRenderFunc={BlockRenderer}
+      customBlockRenderFunc={customBlockRenderFunc}
       uploadCallback={async (file: File) => ({
         data: {
           link: await onImageUpload(file),
@@ -77,6 +79,7 @@ export const Editor = ({
 export interface EditorControledProps extends BaseEditorProps {
   value?: EditorState
   onChange?: (editorState: EditorState) => void
+  customBlockRenderFunc?(block: ContentBlock): any
 }
 
 /**
@@ -90,6 +93,7 @@ export const EditorControled = ({
   value,
   onChange,
   placeholder,
+  customBlockRenderFunc = BlockRenderer,
 }: EditorControledProps) => {
   return (
     <EditorCore
@@ -99,7 +103,7 @@ export const EditorControled = ({
       editorState={value}
       onEditorStateChange={onChange}
       placeholder={placeholder}
-      customBlockRenderFunc={BlockRenderer}
+      customBlockRenderFunc={customBlockRenderFunc}
       uploadCallback={async (file: File) => ({
         data: {
           link: await onImageUpload(file),
